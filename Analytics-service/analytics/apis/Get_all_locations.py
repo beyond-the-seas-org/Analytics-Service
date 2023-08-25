@@ -20,12 +20,15 @@ class Get_all_locations(Resource):
                    {
                         'id': location.id,
                         'location_name': location.location_name,
+                        'state_name':location.state_name,
                         'area_type': location.area_type,
                         'country_name': location.country_name,
                         'avg_living_cost': location.avg_living_cost,
                         'public_transportation':location.public_transportation,
                         'avg_income':location.avg_income,
                         'population':location.population,
+                        'summer_comfort_index':location.summer_comfort_index,
+                        'winter_comfort_index':location.winter_comfort_index,
                         'weather_comfort_index':(location.summer_comfort_index + location.winter_comfort_index)/2,
                         'unemployment_rate': location.unemployment_rate
 
