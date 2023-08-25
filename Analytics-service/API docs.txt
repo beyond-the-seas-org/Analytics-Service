@@ -1,0 +1,35 @@
+
+add_location
+----------------
+post request for adding location ==>
+
+{
+"location_name":"Boston",
+"country_name":"USA",
+"area_type":"Metropoliton area",
+"avg_living_cost":313.5,
+"avg_income":67.107,
+"population":7949,
+"public_transportation":"metro,bus,auto",
+"summer_comfort_index":9.2,
+"winter_comfort_index":3.3,
+"unemployment_rate":7.2
+
+}
+
+
+get_locations
+-------------
+
+post from front_end
+{
+    "preferable_living_cost":1100,
+    "fields_of_interest":["Articial Intilligence","Machine Learning","Natural Language Processing"] 
+}
+
+get_location_id
+-----------------
+post from Professor-service
+flask
+
+
