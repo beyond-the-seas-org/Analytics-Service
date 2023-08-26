@@ -35,7 +35,7 @@ class Get_locations_based_on_analysis(Resource):
 
             location_id_dict=response.json()
 
-            location_ids_based_on_field_of_interest = location_id_dict['location_ids']
+            location_ids_based_on_field_of_interest = location_id_dict.get('location_ids')
 
             #So far, we got two list of location_ids for two type of analysis(one for "preferable living cost" and another one for "field of interest" ),Now we will suggest the user a list of location(aka "final_list_of_location_ids" ) merging these two type of analysis
 

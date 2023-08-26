@@ -4,6 +4,7 @@ from analytics.apis.Get_professors_short_details_of_a_location import *
 from analytics.apis.Get_location_id import *
 from analytics.apis.Get_location_info import *
 from analytics.apis.Get_all_locations import *
+from analytics.apis.Get_all_fields import *
 
 
 
@@ -15,4 +16,5 @@ Newsfeed.add_resource(Get_professor_Short_Details_of_a_Location,'/<location_id>/
 Newsfeed.add_resource(Get_location_id,'/get_location_id') 
 Newsfeed.add_resource(Get_location_info,'/<int:location_id>/get_location_info') 
 Newsfeed.add_resource(Get_all_locations,'/get_all_locations') 
+Newsfeed.add_resource(Get_all_fields,'/get_all_fields') 
 
