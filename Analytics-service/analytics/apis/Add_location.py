@@ -17,6 +17,7 @@ class Add_location(Resource):
 
             new_location = LocationModel()
             new_location.location_name = request.json['location_name']
+            new_location.location_name = request.json['state_name']
             new_location.country_name = request.json['country_name']
             new_location.area_type = request.json['area_type']
             new_location.avg_living_cost = request.json['avg_living_cost']
