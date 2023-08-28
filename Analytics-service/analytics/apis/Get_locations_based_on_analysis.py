@@ -35,9 +35,14 @@ class Get_locations_based_on_analysis(Resource):
 
             location_id_dict=response.json()
 
+
             location_ids_based_on_field_of_interest = location_id_dict.get('location_ids')
 
+
             #So far, we got two list of location_ids for two type of analysis(one for "preferable living cost" and another one for "field of interest" ),Now we will suggest the user a list of location(aka "final_list_of_location_ids" ) merging these two type of analysis
+
+            print(location_ids_based_on_field_of_interest)
+
 
             final_list_of_location_ids = list(set(location_ids_based_on_preferable_living_cost).intersection(set(location_ids_based_on_field_of_interest)))
 
@@ -45,6 +50,7 @@ class Get_locations_based_on_analysis(Resource):
             suggestable_locations = LocationModel.query.filter(LocationModel.id.in_(final_list_of_location_ids)).all()
 
             suggestable_locations_details_dicts=[]
+
 
             for location in suggestable_locations:
                 suggestable_locations_details_dicts.append(
@@ -61,11 +67,14 @@ class Get_locations_based_on_analysis(Resource):
                         'summer_comfort_index':location.summer_comfort_index,
                         'winter_comfort_index':location.winter_comfort_index,
                         'weather_comfort_index':(location.summer_comfort_index + location.winter_comfort_index)/2,
-                        'unemployment_rate': location.unemployment_rate
+                        'unemployment_rate': location.unemployment_rate,
+                        'image_link':location.image
 
                    }
 
                 )
+
+   
 
             #sorting the suggested_locations based on living_cost,weather_comfort_index    
 

@@ -4,7 +4,7 @@ class LocationModel(db.Model):
 
     """
     primary key: id
-    other fields: location_name(basically city name),area_type(rural or city),country_name,avg_living_cost(e.g 2500-3000$),weather,public_transportation,population,avg_income,summer_comfort_index(comfort_index is a measurement which indicate how much the weather is comfortable to live),winter_comfort_index,unemployment_rate(in %)
+    other fields: location_name(basically city name),area_type(rural or city),state_name,country_name,avg_living_cost(e.g 2500-3000$),weather,public_transportation,population,avg_income,summer_comfort_index(comfort_index is a measurement which indicate how much the weather is comfortable to live),winter_comfort_index,unemployment_rate(in %)
     """
 
     __tablename__ = 'location'
@@ -21,6 +21,8 @@ class LocationModel(db.Model):
     summer_comfort_index = db.Column(db.Float) 
     winter_comfort_index = db.Column(db.Float)
     unemployment_rate = db.Column(db.Float)
+    image = db.Column(db.String(250))
+
 
 
     # create a json method
@@ -29,7 +31,7 @@ class LocationModel(db.Model):
             'id': self.id,
             'location_name': self.location_name,
             'area_type': self.area_type,
-            'state_name':self.state_name,
+            'state_name' :self.state_name,
             'country_name': self.country_name,
             'avg_living_cost': self.avg_living_cost,
             'public_transportation':self.public_transportation,
@@ -37,6 +39,7 @@ class LocationModel(db.Model):
             'population':self.population,
             'summer_comfort_index':self.summer_comfort_index,
             'winter_comfort_index':self.winter_comfort_index,
-            'unemployment_rate': self.unemployment_rate
+            'unemployment_rate': self.unemployment_rate,
+            "image" : self.image
 
         }

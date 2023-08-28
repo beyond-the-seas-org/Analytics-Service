@@ -21,6 +21,8 @@ class LocationModel(db.Model):
     summer_comfort_index = db.Column(db.Float) 
     winter_comfort_index = db.Column(db.Float)
     unemployment_rate = db.Column(db.Float)
+    image = db.Column(db.String(250))
+
 
 
     # create a json method
@@ -37,6 +39,7 @@ class LocationModel(db.Model):
             'population':self.population,
             'summer_comfort_index':self.summer_comfort_index,
             'winter_comfort_index':self.winter_comfort_index,
-            'unemployment_rate': self.unemployment_rate
+            'unemployment_rate': self.unemployment_rate,
+            "image" : self.image
 
         }

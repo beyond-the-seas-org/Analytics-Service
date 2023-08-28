@@ -12,7 +12,7 @@ class Get_all_locations(Resource):
 
         try:
           
-            all_locations = LocationModel.query.all()
+            all_locations = LocationModel.query.filter(LocationModel.id <= 6).all() 
 
             all_locations_details_dicts=[]
             for location in all_locations:
@@ -30,7 +30,8 @@ class Get_all_locations(Resource):
                         'summer_comfort_index':location.summer_comfort_index,
                         'winter_comfort_index':location.winter_comfort_index,
                         'weather_comfort_index':(location.summer_comfort_index + location.winter_comfort_index)/2,
-                        'unemployment_rate': location.unemployment_rate
+                        'unemployment_rate': location.unemployment_rate,
+                        'image_link':location.image
 
                    }
 
