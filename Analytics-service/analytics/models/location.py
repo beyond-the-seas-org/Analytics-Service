@@ -14,13 +14,13 @@ class LocationModel(db.Model):
     area_type = db.Column(db.String(50))
     state_name = db.Column(db.String(50))
     country_name = db.Column(db.String(30), nullable=False)
-    avg_living_cost = db.Column(db.Float)
+    avg_living_cost = db.Column(db.String(20))
     public_transportation = db.Column(db.String(100))
-    population = db.Column(db.Integer)
-    avg_income = db.Column(db.Float)
-    summer_comfort_index = db.Column(db.Float) 
-    winter_comfort_index = db.Column(db.Float)
-    unemployment_rate = db.Column(db.Float)
+    population = db.Column(db.String(20))
+    avg_income = db.Column(db.String(20))
+    summer_comfort_index = db.Column(db.String(20)) 
+    winter_comfort_index = db.Column(db.String(20))
+    unemployment_rate = db.Column(db.String(20))
     image = db.Column(db.String(250))
     #extra added
     home_price = db.Column(db.String(20))
@@ -30,6 +30,7 @@ class LocationModel(db.Model):
     population_details = db.Column(db.String(1000))
     transportation_details = db.Column(db.String(1000))
     real_estate_details = db.Column(db.String(1000))
+    school_details = db.Column(db.String(1000))
 
 
 
@@ -51,14 +52,15 @@ class LocationModel(db.Model):
             'winter_comfort_index':self.winter_comfort_index,
             'unemployment_rate': self.unemployment_rate,
             "image" : self.image,
-            
+
             "home_price" : self.home_price,
             "economic_details" : self.economic_details,
             "cost_of_living_details" : self.cost_of_living_details,
             "weather_details" : self.weather_details,
             "population_details" : self.population_details,
             "transportation_details" : self.transportation_details,
-            "real_estate_details" : self.real_estate_details
+            "real_estate_details" : self.real_estate_details,
+            "school_details" : self.school_details
 
 
         }

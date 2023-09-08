@@ -15,7 +15,7 @@ class Get_location_info(Resource):
 
         try:          
             location = LocationModel.query.get(location_id)
-            return jsonify({'location_name':location.location_name,'state_name':location.state_name,"country_name":location.country_name})
+            return jsonify(location.json())
 
         except Exception as e:
             print({"message":"exception occured in get_location_id"})
