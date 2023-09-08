@@ -22,6 +22,16 @@ class LocationModel(db.Model):
     winter_comfort_index = db.Column(db.Float)
     unemployment_rate = db.Column(db.Float)
     image = db.Column(db.String(250))
+    #extra added
+    home_price = db.Column(db.String(20))
+    economic_details = db.Column(db.String(1000))
+    cost_of_living_details = db.Column(db.String(1000))
+    weather_details = db.Column(db.String(1000))
+    population_details = db.Column(db.String(1000))
+    transportation_details = db.Column(db.String(1000))
+    real_estate_details = db.Column(db.String(1000))
+
+
 
 
 
@@ -40,6 +50,15 @@ class LocationModel(db.Model):
             'summer_comfort_index':self.summer_comfort_index,
             'winter_comfort_index':self.winter_comfort_index,
             'unemployment_rate': self.unemployment_rate,
-            "image" : self.image
+            "image" : self.image,
+            
+            "home_price" : self.home_price,
+            "economic_details" : self.economic_details,
+            "cost_of_living_details" : self.cost_of_living_details,
+            "weather_details" : self.weather_details,
+            "population_details" : self.population_details,
+            "transportation_details" : self.transportation_details,
+            "real_estate_details" : self.real_estate_details
+
 
         }
