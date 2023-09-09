@@ -6,9 +6,17 @@ from analytics import api
 import requests
 from analytics.models.location import * 
 
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended.exceptions import NoAuthorizationError
+
+@api.errorhandler(NoAuthorizationError)
+def handle_auth_required(e):
+    return {"message": "Authorization token is missing"}, 401
+
+
 class Get_locations_based_on_analysis(Resource):
     @api.doc(responses={200: 'OK', 404: 'Not Found', 500: 'Internal Server Error'})
-
+    @jwt_required()
     def post(self):
 
         try:
