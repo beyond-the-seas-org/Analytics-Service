@@ -8,9 +8,17 @@ from analytics.models.location import *
 
 #this API will take "Location_id" from "Professor-service" and will return the "location_name,state_name and country name" to the "Professor-service"
 
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended.exceptions import NoAuthorizationError
+
+@api.errorhandler(NoAuthorizationError)
+def handle_auth_required(e):
+    return {"message": "Authorization token is missing"}, 401
+
+
 class Get_location_info(Resource):
     @api.doc(responses={200: 'OK', 404: 'Not Found', 500: 'Internal Server Error'})
-
+    @jwt_required()
     def get(self,location_id):
 
         try:          
