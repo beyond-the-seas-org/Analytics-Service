@@ -18,6 +18,7 @@ class Get_location_id(Resource):
             state_name = request.json['state_name']
             country_name = request.json['country_name']
 
+            print(location_name," ",state_name," ",country_name)
             location_id = LocationModel.query.filter(LocationModel.location_name == location_name,LocationModel.state_name == state_name,LocationModel.country_name == country_name).first().id
 
             return jsonify({'location_id':location_id})
