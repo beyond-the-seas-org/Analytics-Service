@@ -24,6 +24,7 @@ class Get_all_locations(Resource):
             all_locations_details_dicts=[]
             for location in all_locations:
                 all_locations_details_dicts.append(location.json())
+                
 
             #sorting the all_locations based on living_cost,weather_comfort_index    
 
