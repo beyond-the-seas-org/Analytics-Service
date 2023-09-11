@@ -67,27 +67,28 @@ class Get_locations_based_on_analysis(Resource):
 
             print(location_ids_based_on_field_of_interest)
             print(location_ids_based_on_preferable_living_cost)
-
-            final_list_of_location_ids = list(set(location_ids_based_on_preferable_living_cost).intersection(set(location_ids_based_on_field_of_interest)))
-
-            #Now we will find the details of each filtered locations
-            suggestable_locations = LocationModel.query.filter(LocationModel.id.in_(final_list_of_location_ids)).all()
-
             suggestable_locations_details_dicts=[]
 
 
-            for location in suggestable_locations:
-                suggestable_locations_details_dicts.append(location.json())
+            if location_ids_based_on_field_of_interest and location_ids_based_on_preferable_living_cost:
+                final_list_of_location_ids = list(set(location_ids_based_on_field_of_interest) & set(location_ids_based_on_preferable_living_cost))
 
-   
+      
+                #Now we will find the details of each filtered locations
+                suggestable_locations = LocationModel.query.filter(LocationModel.id.in_(final_list_of_location_ids)).all()
 
-            #sorting the suggested_locations based on living_cost,weather_comfort_index    
+                suggestable_locations_details_dicts=[]
 
-            sorted_list = sorted(suggestable_locations_details_dicts, key=lambda x: (x['avg_living_cost']))
-    
+                for location in suggestable_locations:
+                    suggestable_locations_details_dicts.append(location.json())
 
-            return jsonify(sorted_list)
+                #sorting the suggested_locations based on living_cost,weather_comfort_index    
+
+                sorted_list = sorted(suggestable_locations_details_dicts, key=lambda x: (x['avg_living_cost']))
         
+
+                return jsonify(sorted_list)
+            
 
 
 
