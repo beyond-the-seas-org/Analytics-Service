@@ -29,6 +29,7 @@ class Get_locations_based_on_analysis(Resource):
             fields_of_interest = request.json['fields_of_interest']
 
             #converting "preferable_living_cost" to float
+            preferable_living_cost = float(preferable_living_cost)
 
             # locations_based_on_living_cost = LocationModel.query.filter(float(LocationModel.avg_living_cost.split(' / ')[0]) >= preferable_living_cost-50 , float(LocationModel.avg_living_cost.split(' / ')[0])  <= preferable_living_cost+50).order_by(LocationModel.avg_living_cost.asc()).all()
 
