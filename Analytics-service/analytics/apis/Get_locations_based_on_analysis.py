@@ -5,6 +5,8 @@ from analytics import db
 from analytics import api
 import requests
 from analytics.models.location import * 
+from sqlalchemy import cast, String, Float
+
 
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended.exceptions import NoAuthorizationError
@@ -26,7 +28,21 @@ class Get_locations_based_on_analysis(Resource):
             preferable_living_cost = request.json['preferable_living_cost']
             fields_of_interest = request.json['fields_of_interest']
 
-            locations_based_on_living_cost = LocationModel.query.filter(LocationModel.avg_living_cost >= preferable_living_cost-500 , LocationModel.avg_living_cost <= preferable_living_cost+500).order_by(LocationModel.avg_living_cost.asc()).all()
+            #converting "preferable_living_cost" to float
+
+            # locations_based_on_living_cost = LocationModel.query.filter(float(LocationModel.avg_living_cost.split(' / ')[0]) >= preferable_living_cost-50 , float(LocationModel.avg_living_cost.split(' / ')[0])  <= preferable_living_cost+50).order_by(LocationModel.avg_living_cost.asc()).all()
+
+            expr = func.split_part(LocationModel.avg_living_cost, ' / ', 1)
+
+            locations_based_on_living_cost = (
+                LocationModel.query
+                .filter(
+                    cast(expr, Float) >= preferable_living_cost-50,
+                    cast(expr, Float) <= preferable_living_cost+50
+                )
+                .order_by(cast(expr, Float).asc())
+                .all()
+            )
 
             location_ids_based_on_preferable_living_cost=[]
             for location in locations_based_on_living_cost:
@@ -50,7 +66,7 @@ class Get_locations_based_on_analysis(Resource):
             #So far, we got two list of location_ids for two type of analysis(one for "preferable living cost" and another one for "field of interest" ),Now we will suggest the user a list of location(aka "final_list_of_location_ids" ) merging these two type of analysis
 
             print(location_ids_based_on_field_of_interest)
-
+            print(location_ids_based_on_preferable_living_cost)
 
             final_list_of_location_ids = list(set(location_ids_based_on_preferable_living_cost).intersection(set(location_ids_based_on_field_of_interest)))
 
@@ -61,32 +77,13 @@ class Get_locations_based_on_analysis(Resource):
 
 
             for location in suggestable_locations:
-                suggestable_locations_details_dicts.append(
-                   {
-                        'id': location.id,
-                        'location_name': location.location_name,
-                        'state_name':location.state_name,
-                        'area_type': location.area_type,
-                        'country_name': location.country_name,
-                        'avg_living_cost': location.avg_living_cost,
-                        'public_transportation':location.public_transportation,
-                        'avg_income':location.avg_income,
-                        'population':location.population,
-                        'summer_comfort_index':location.summer_comfort_index,
-                        'winter_comfort_index':location.winter_comfort_index,
-                        'weather_comfort_index':(location.summer_comfort_index + location.winter_comfort_index)/2,
-                        'unemployment_rate': location.unemployment_rate,
-                        'image_link':location.image
-
-                   }
-
-                )
+                suggestable_locations_details_dicts.append(location.json())
 
    
 
             #sorting the suggested_locations based on living_cost,weather_comfort_index    
 
-            sorted_list = sorted(suggestable_locations_details_dicts, key=lambda x: (x['avg_living_cost'], x['weather_comfort_index']))
+            sorted_list = sorted(suggestable_locations_details_dicts, key=lambda x: (x['avg_living_cost']))
     
 
             return jsonify(sorted_list)
